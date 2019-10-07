@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Viewer</title>
+</head>
+<body>
+<form action="/" method="POST"><input name=color type="text" placeholder="type like #000000 or black"/></form>
+<script type="text/javascript">
+    const bodyElement = document.querySelector("body");
+    let xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", function(event){
+        console.log(this.responseText);
+        bodyElement.style.backgroundColor = this.responseText;
+    });
+    const polling = function() {
+        xhr.open("GET", "/color");
+        xhr.send();
+    };
+    window.setInterval(polling, 1000);
+</script>
+</body>
+</html>
