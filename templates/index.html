@@ -2,22 +2,28 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Color Viewer</title>
+    <style type="text/css">
+        input {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-<form><input name=color type="text" placeholder="type like #000000 or black"/></form>
+<input  type="range" value="0", min="0", max="360", step="1"/>
 <script type="text/javascript">
     const bodyElement = document.querySelector("body");
-    const formElement = document.querySelector("form");
     const inputElement = document.querySelector("input");
     let xhr = new XMLHttpRequest();
-    formElement.addEventListener("submit", (event) => {
-        event.preventDefault();
+    inputElement.addEventListener("change", (event) => {
+        // event.preventDefault();
         xhr.open("POST", "/color");
-        xhr.send(inputElement.value);
-        inputElement.value = "";
+        let color = "hsl(" + inputElement.value + ", 100%, 50%)";
+        xhr.send(color);
     });
     xhr.addEventListener("load", (event) => {
+        console.log(xhr.responseText);
         bodyElement.style.backgroundColor = xhr.responseText;
     });
     const polling = () => {
