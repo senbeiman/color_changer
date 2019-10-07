@@ -1,2 +1,2 @@
 # color changer
-syncronizes display color
+synchronizes display color
