@@ -5,15 +5,22 @@
     <title>Color Viewer</title>
 </head>
 <body>
-<form action="/" method="POST"><input name=color type="text" placeholder="type like #000000 or black"/></form>
+<form><input name=color type="text" placeholder="type like #000000 or black"/></form>
 <script type="text/javascript">
     const bodyElement = document.querySelector("body");
+    const formElement = document.querySelector("form");
+    const inputElement = document.querySelector("input");
     let xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function(event){
-        console.log(this.responseText);
-        bodyElement.style.backgroundColor = this.responseText;
+    formElement.addEventListener("submit", (event) => {
+        event.preventDefault();
+        xhr.open("POST", "/color");
+        xhr.send(inputElement.value);
+        inputElement.value = "";
     });
-    const polling = function() {
+    xhr.addEventListener("load", (event) => {
+        bodyElement.style.backgroundColor = xhr.responseText;
+    });
+    const polling = () => {
         xhr.open("GET", "/color");
         xhr.send();
     };

@@ -10,17 +10,17 @@ def render_html():
     return render_template("index.html")
 
 
-@app.route('/', methods=["POST"])
+@app.route('/color', methods=["POST"])
 def change_color():
     global color
-    color = request.form["color"]
-    return render_template("index.html")
+    color = request.data.decode('utf-8')
+    print("post", color)
+    return "ok"
 
 
 @app.route('/color', methods=["GET"])
 def get_color():
-    global color
-    print(color)
+    print('get', color)
     return color
     
     
