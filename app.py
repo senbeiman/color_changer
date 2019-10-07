@@ -19,6 +19,7 @@ def change_color():
 
 @app.route('/color', methods=["GET"])
 def get_color():
+    global color
     print(color)
     return color
     
